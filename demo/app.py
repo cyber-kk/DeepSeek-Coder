@@ -1,3 +1,5 @@
+# Pumma edition - converted and maintained by the cyber-kk team (https://github.com/cyber-kk)
+# Original demo adapted from DeepSeek-Coder technology. See Pumma/ for the full chat bot.
 import os
 from threading import Thread
 from typing import Iterator
@@ -13,9 +15,9 @@ DEFAULT_MAX_NEW_TOKENS = 1024
 MAX_INPUT_TOKEN_LENGTH = int(os.getenv("MAX_INPUT_TOKEN_LENGTH", "4096"))
 
 DESCRIPTION = """\
-# DeepSeek-6.7B-Chat
+# Pumma
 
-This Space demonstrates model [DeepSeek-Coder](https://huggingface.co/deepseek-ai/deepseek-coder-6.7b-instruct) by DeepSeek, a code model with 6.7B parameters fine-tuned for chat instructions.
+Pumma is a code-intelligent AI assistant by the cyber-kk team (https://github.com/cyber-kk), built on DeepSeek-Coder technology (6.7B chat model fine-tuned for instructions).
 """
 
 if not torch.cuda.is_available():

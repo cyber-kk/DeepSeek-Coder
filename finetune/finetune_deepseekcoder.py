@@ -1,3 +1,5 @@
+# Pumma edition - fine-tuning pipeline converted and maintained by the cyber-kk team
+# (https://github.com/cyber-kk). Based on DeepSeek-Coder technology.
 import copy
 import random
 from dataclasses import dataclass, field

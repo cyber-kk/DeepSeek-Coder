@@ -1,3 +1,5 @@
+> **Pumma edition** — this fine-tuning pipeline is part of the Pumma project by the [cyber-kk team](https://github.com/cyber-kk), based on DeepSeek-Coder technology.
+
 ## How to Fine-tune DeepSeek-Coder
 
 We provide script `finetune_deepseekcoder.py` for users to finetune our models on downstream tasks.

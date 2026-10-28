@@ -1,0 +1,9 @@
+{
+  "_comment": "Copy this file to pumma_config.json (same folder as server.py) to set a server-wide backend. Any OpenAI-compatible endpoint works: DeepSeek API, OpenRouter, Ollama, llama.cpp server, LM Studio. You can also configure everything in the web UI Settings - the browser config wins.",
+  "provider": "auto",
+  "openai_compat": {
+    "base_url": "https://api.deepseek.com/v1",
+    "api_key": "sk-YOUR-KEY-HERE",
+    "model": "deepseek-chat"
+  }
+}

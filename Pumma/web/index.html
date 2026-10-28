@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pumma - by cyber-kk</title>
+<meta name="theme-color" content="#0b0e14">
+<meta name="description" content="Pumma - an AI assistant by the cyber-kk team. Ask anything. Pumma delivers.">
+<link rel="icon" type="image/svg+xml" href="/web/logo.svg">
+<link rel="manifest" href="/web/manifest.webmanifest">
+<link rel="stylesheet" href="/web/css/pumma.css?v=1">
+</head>
+<body>
+<div id="app">
+
+  <!-- Drawer: conversations (sidebar on desktop) -->
+  <nav id="drawer" class="side">
+    <div class="drawer-head">
+      <span>Chats</span>
+      <button id="drawer-close" class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <button id="drawer-new" class="new-chat-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      New chat
+    </button>
+    <div id="conv-list"></div>
+    <div class="drawer-foot">Pumma v1.0 &middot; cyber-kk team</div>
+  </nav>
+
+  <div class="right-col">
+    <!-- Header -->
+    <header id="topbar">
+      <button id="btn-menu" class="icon-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="brand" onclick="PM.newChat()">
+        <span class="logo-mark">
+          <svg viewBox="0 0 24 24"><path d="M6 21V3h7a5 5 0 0 1 0 10H6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-name">Pumma</span>
+        <span class="team-chip">by cyber-kk</span>
+      </div>
+      <span id="provider-dot" class="provider" title="Active brain">...</span>
+      <button id="btn-new" class="icon-btn" aria-label="New chat">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button id="btn-settings" class="icon-btn" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+
+    <!-- Chat area -->
+    <main id="chat-area">
+      <div id="welcome">
+        <div class="hero-logo">
+          <svg viewBox="0 0 24 24"><path d="M6 21V3h7a5 5 0 0 1 0 10H6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h1>Pumma</h1>
+        <p class="tagline">Ask anything. Pumma delivers.</p>
+        <div class="chips">
+          <button class="chip" data-prompt="Write a complete Python script that renames all .txt files in a folder to .md. Explain as you go.">Write Python code</button>
+          <button class="chip" data-prompt="Explain how Python decorators work, with a small runnable example.">Explain code</button>
+          <button class="chip" data-prompt="Find the bug in this Python code and fix it:&#10;&#10;```python&#10;def avg(nums):&#10;    return sum(nums) / len(nums)&#10;&#10;print(avg([]))&#10;```">Debug my code</button>
+          <button class="chip" data-prompt="Who are you? Tell me about yourself.">Who is Pumma?</button>
+        </div>
+      </div>
+      <div id="messages"><div id="chat-inner-max"></div></div>
+      <div id="typing" class="typing hidden">
+        <span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span>
+      </div>
+    </main>
+
+    <!-- Composer -->
+    <footer id="composer">
+      <div class="composer-inner">
+        <textarea id="input" rows="1" placeholder="Message Pumma..." autocomplete="off"></textarea>
+        <button id="btn-send" aria-label="Send">
+          <svg viewBox="0 0 24 24"><path d="M3.4 20.4 21 12 3.4 3.6l.02 6.53L15 12 3.42 13.87z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="composer-foot">Pumma can run your <code>```python</code> blocks with the <b>&#9654; Run</b> button.</div>
+    </footer>
+  </div>
+
+  <!-- Backdrop + settings modal -->
+  <div id="drawer-backdrop"></div>
+  <div id="modal-backdrop" class="hidden"></div>
+  <div id="settings-modal" class="hidden" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h2>Settings</h2>
+      <button id="settings-close" class="icon-btn" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Brain (backend)</label>
+        <select id="set-provider">
+          <option value="auto">Auto (recommended)</option>
+          <option value="openai">OpenAI-compatible API</option>
+          <option value="offline">Pumma Core (offline)</option>
+        </select>
+      </div>
+      <div class="field" id="f-base">
+        <label>Base URL</label>
+        <input id="set-base" type="url" placeholder="https://api.deepseek.com/v1" spellcheck="false">
+      </div>
+      <div class="field" id="f-key">
+        <label>API key</label>
+        <input id="set-key" type="password" placeholder="sk-..." spellcheck="false" autocomplete="off">
+      </div>
+      <div class="field" id="f-model">
+        <label>Model name</label>
+        <input id="set-model" type="text" placeholder="deepseek-chat" spellcheck="false">
+      </div>
+      <p class="hint">Works with any OpenAI-compatible endpoint: DeepSeek API, OpenRouter, Ollama, llama.cpp server, LM Studio... The key is stored only in this browser.</p>
+      <p class="hint">Active brain right now: <b id="active-provider">...</b></p>
+      <button id="set-save" class="primary-btn">Save</button>
+    </div>
+  </div>
+
+</div>
+<script src="/web/js/pumma.js?v=1"></script>
+</body>
+</html>

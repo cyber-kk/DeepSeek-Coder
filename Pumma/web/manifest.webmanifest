@@ -1,0 +1,12 @@
+{
+  "name": "Pumma",
+  "short_name": "Pumma",
+  "description": "Pumma - an AI assistant by the cyber-kk team. Ask anything. Pumma delivers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0b0e14",
+  "icons": [
+    { "src": "/web/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
